@@ -1,4 +1,4 @@
-package MyBank.src.com.mybank.account;
+package com.mybank.account;
 
 public class InsufficientFundsException extends Exception {
 

@@ -1,4 +1,4 @@
-package MyBank.src.com.mybank.account;
+package com.mybank.account;
 
 import java.util.Arrays;
 import java.util.List;

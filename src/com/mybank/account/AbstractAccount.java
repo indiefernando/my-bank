@@ -1,4 +1,4 @@
-package MyBank.src.com.mybank.account;
+package com.mybank.account;
 
 public abstract class AbstractAccount {
     /*
@@ -20,7 +20,6 @@ public abstract class AbstractAccount {
         this.balance = balance;
         this.accountNumber = accountNumber;
     }
-
 
     public String getCustomer() {
         return customer;
@@ -57,19 +56,19 @@ public abstract class AbstractAccount {
     - Transfer (internal, externals)
     - Interest
      */
-    public Double deposit(double amount) {
+    public Double deposit(double amount) throws IllegalArgumentException {
         this.balance += amount;
         System.out.println("Deposited amount: " + amount);
         return amount;
     }
 
-    public Double withdraw(double amount) {
+    public Double withdraw(double amount) throws InsufficientFundsException, UnsupportedOperationException {
         this.balance -= amount;
         System.out.println("Withdrawn amount: " + amount);
         return amount;
     }
 
-    public Double transfer(AbstractAccount toAccount, double amount) {
+    public Double transfer(AbstractAccount toAccount, double amount) throws InsufficientFundsException {
         // withdraw from this account
         this.balance -= amount;
         // deposit into other account
@@ -77,5 +76,21 @@ public abstract class AbstractAccount {
         System.out.println("Transferred amount: " + amount);
 
         return amount;
+    }
+
+    public void checkAmountIsGreaterThanZeroElseThrow(double amount) throws IllegalArgumentException {
+        if (amount <= 0.0) {
+            throw new IllegalArgumentException("Amount must be bigger than zero: " + amount);
+        }
+    }
+
+    public void checkForSufficientFundsElseThrow(double amount) throws InsufficientFundsException {
+        if (amount > this.balance) {
+            throw new InsufficientFundsException(
+                    "Insufficient funds: " +
+                    this.balance +
+                    " - cannot transfer: " +
+                    amount);
+        }
     }
 }
