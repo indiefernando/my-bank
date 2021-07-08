@@ -56,5 +56,13 @@ class CheckingAccountTest {
 			account.deposit(amount);
 		});
 	}
+	
+	@Test  
+	void withdraw__amount_greater_than_zero__works() throws InsufficientFundsException {
+		double amount = 100;
+		account.deposit(amount + 1);
+		account.withdraw(amount);
+		assertEquals(1.0, account.getBalance());
+	}
 
 }
